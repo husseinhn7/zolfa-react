@@ -1,4 +1,3 @@
-import React from 'react'
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -10,20 +9,35 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useFormik } from 'formik'
 import loginSchema from '../validation/auth'
+import { usePostApiMutation } from "../store/apiSlice"
+import { login } from "../store/authSlice"
+import { useDispatch } from "react-redux"
+import { useNavigate } from "react-router"
+import useApiToast from "../hooks/apiToast"
 
 const Login = () => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const [postApi] = usePostApiMutation()
+  const { handleApiResponse } = useApiToast()
   const {handleSubmit, handleChange, values, errors} = useFormik({
     initialValues : {
       email : "",
       password : ""
     },
     validationSchema : loginSchema,
-    onSubmit:(values)=>{
-      console.log(values)
+    onSubmit:async (values)=>{
+      const response = await postApi({url:"/auth/login",body:values})
+      console.log(response.data)
+      if (response.data){
+          dispatch(login(response.data.token))
+          navigate("/")
+      }
+      handleApiResponse("تسجيل الدخول", response)
     }
   })
   return (
-    <Card className="w-[450px] " dir="rtl">
+    <Card className=" w-[90vw]  md:w-[40vw] xl:w-[30vw] customShadow rounded-lg" dir="rtl">
     <CardHeader>
       <CardTitle>تسجيل الدخول</CardTitle>
     </CardHeader>
@@ -31,12 +45,12 @@ const Login = () => {
       <form onSubmit={handleSubmit}>
         <div className="grid w-full items-center gap-4">
           <div className="flex flex-col space-y-1.5">
-            <Label htmlFor="email">الاسم</Label>
+            <Label htmlFor="email">البريد الإلكتروني</Label>
             <Input
              id="email" 
              onChange={handleChange}
              value = {values.email}
-             placeholder="Name of your project" 
+             placeholder="البريد الإلكتروني" 
               />
               {errors.email && <label className='text-red-500 text-sm'> {errors.email}</label>}
           </div>
@@ -44,7 +58,7 @@ const Login = () => {
             <Label htmlFor="password" >كلمة المرور</Label>
             <Input
              id="password" 
-             placeholder="Name of your project" 
+             placeholder="كلمة المرور" 
              onChange={handleChange}
              value = {values.password}
              />
@@ -53,9 +67,9 @@ const Login = () => {
            
         </div>
 
-          <Button type="button" variant="link" className="self-start" > هل نسيت كلمة المرور ؟ </Button>
+          <Button onClick = {()=>{navigate("/forgotPassword")}} type="button" variant="link" className="self-start" > هل نسيت كلمة المرور ؟ </Button>
           <Button type="submit" className="w-full">تسجيل الدخول</Button>
-          <Button type="button" variant="link" className="self-start" > إنشاء حساب جديد</Button>
+          <Button onClick = {()=>{navigate("/signup")}} type="button" variant="link" className="self-start" > إنشاء حساب جديد</Button>
           
       </form>
     </CardContent>

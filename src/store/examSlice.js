@@ -27,6 +27,9 @@ const examSlice = createSlice({
                 questions : state.questions
             }
         },
+        reSetExam : (state, payload)=>{
+                return initialState
+        },
         setExamSettings : (state, payload)=>{
             state.startDate = payload.payload.startDate
             state.endDate = payload.payload.endDate
@@ -48,4 +51,4 @@ const examSlice = createSlice({
 
 
 export default examSlice.reducer
-export const {setExamDetails, setExamSettings, addQuestion, deleteQuestion, editQuestion} = examSlice.actions
+export const {setExamDetails, setExamSettings, addQuestion, deleteQuestion, editQuestion, reSetExam} = examSlice.actions

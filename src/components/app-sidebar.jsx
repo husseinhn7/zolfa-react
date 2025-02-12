@@ -21,7 +21,8 @@ import {
   SidebarMenuSubItem,
   SidebarFooter,
   SidebarRail,
-  SidebarHeader
+  SidebarHeader,
+  useSidebar
 
 } from "@/components/ui/sidebar"
 import { GrScorecard } from "react-icons/gr";
@@ -65,11 +66,11 @@ const items = [
     url: "/subjects",
     icon: PiBook,
   },
-  {
-    title: "الدروس",
-    url: "/lessons",
-    icon: SlBookOpen,
-  },
+  // {
+  //   title: "الدروس",
+  //   url: "/lessons",
+  //   icon: SlBookOpen,
+  // },
   {
     title: "المشرفين",
     url: "/supervisors",
@@ -89,6 +90,8 @@ const items = [
 
 export function AppSidebar() {
   const {pathname} = useLocation()
+  const {setOpenMobile} = useSidebar()
+
   return (
 
     <Sidebar  className="p-3 border-none bg-gray-50 overflow-hidden"  side="right"   dir="rtl">
@@ -96,7 +99,7 @@ export function AppSidebar() {
 
 
     <div className="relative p-2 rounded-lg pt-0  customShadow h-full overflow=y-scroll bg-white">
-      <SidebarHeader className="h-16  sticky  left-2 top-0 bg-white z-20 -mx-2">
+      <SidebarHeader className="h-16  sticky  left-2 top-0 bg-white z-20 -mx-2 rounded-lg">
       <NavUser user={{
           name: "string",
           email: "string",
@@ -113,9 +116,9 @@ export function AppSidebar() {
             <SidebarMenu>
               {items.map((item) => (
                 <SidebarMenuItem key={item.title} className={`${ pathname ==item.url ? "bg-gray-200" : ""} rounded-md`}>
-                  <SidebarMenuButton asChild>
+                  <SidebarMenuButton asChild onClick = {()=>{setOpenMobile(false)}}>
                     <Link to={item.url}>
-                      <item.icon className=" text-2xl" />
+                      <item.icon className=" text-2xl"  />
                       <span>{item.title}</span>
                     </Link>
                   </SidebarMenuButton>

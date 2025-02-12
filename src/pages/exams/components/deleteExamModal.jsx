@@ -1,25 +1,30 @@
 import {
-    Dialog,
     DialogClose,
-    DialogContent,
-    DialogDescription,
     DialogFooter,
     DialogHeader,
     DialogTitle,
-    DialogTrigger,
   } from "@/components/ui/dialog"
-  import { Label } from "@/components/ui/label"
-
+  import { useDeleteApiMutation } from "../../../store/apiSlice"
+import useApiToast from "../../../hooks/apiToast"
   import { Button } from "@/components/ui/button"
-
+import useLoading from "../../../hooks/loading"
 
 const DeleteExamModal = ({id}) => {
+  const { handleApiResponse } = useApiToast()
+  const [deleteApi] = useDeleteApiMutation()
+  const [setLoading] = useLoading()
+  const handelDeleteExam = async () =>{
+    setLoading(true)
+    const response = await deleteApi({url : `/exam/${id}`, tag : "exam"})
+    handleApiResponse("حذف إختبار", response)
+  }
+
   return (
-    <>
+    < >
                       <DialogHeader className="p-4">
                         <DialogTitle>
                         <h1 className=' text-xl  flex w-full  items-center justify-center' dir='ltr'>
-                  هل تريد حذف هذا الإختبار ؟
+                           هل تريد حذف هذا الإختبار ؟
                         </h1>
                         </DialogTitle>
       
@@ -38,7 +43,11 @@ const DeleteExamModal = ({id}) => {
                               <DialogFooter className="sm:justify-start">
                               <DialogClose  className="w-full flex justify-evenly mb-4 ">
                       
-                             <Button className=" bg-red-600 h-8 w-1/3 hover:bg-red-700" type="button"  >  
+                             <Button 
+                             onClick = {()=>{
+                              handelDeleteExam()
+                             }}
+                             className=" bg-red-600 h-8 w-1/3 hover:bg-red-700" type="button"  >  
                                  حذف 
                               </Button>
     

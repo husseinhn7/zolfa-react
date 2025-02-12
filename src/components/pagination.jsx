@@ -9,7 +9,7 @@ import {
     PaginationPrevious,
   } from "@/components/ui/pagination";
   
- function PaginationComponent({ currentPage, totalPages, onPageChange }) {
+ function PaginationComponent({ currentPage, totalPages, onPageChange, url }) {
     const getPageNumbers = () => {
       const pages = [];
       const maxPagesToShow = 5;
@@ -30,44 +30,50 @@ import {
       return pages;
     };
   
-    return (
-      <Pagination>
-        <PaginationContent className="h-4">
-          <PaginationItem >
-            <PaginationPrevious
-            className=" h-8 w-8 text-center"
-              href="#"
-              onClick={() => currentPage > 1 && onPageChange(currentPage - 1)}
-              disabled={currentPage === 1}
-            />
-          </PaginationItem>
-          {getPageNumbers().map((page, index) => (
-            <PaginationItem   className = " p-0 h-8 w-8" key={index}>
-              {page === "..." ? (
-                <PaginationEllipsis />
-              ) : (
-                <PaginationLink
-                  className = " p-0 h-8 w-8"
-                  href="#"
-                  isActive={currentPage === page}
-                  onClick={() => onPageChange(page)}
-                >
-                  {page}
-                </PaginationLink>
-              )}
+    return ( <> 
+                {
+                  totalPages > 0 ?
+                
+        <Pagination>
+          <PaginationContent className="h-4">
+            <PaginationItem >
+              <PaginationPrevious
+              className=" h-8 w-8 text-center"
+                to={currentPage-1 > 0 ? url + `${currentPage-1}` : currentPage }
+                onClick={() => currentPage > 1 && onPageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+              />
             </PaginationItem>
-          ))}
-          <PaginationItem>
-            <PaginationNext
-              className="  h-8 w-8 text-center"
+            {getPageNumbers().map((page, index) => (
+              <PaginationItem   className = " p-0 h-8 w-8" key={index}>
+                {page === "..." ? (
+                  <PaginationEllipsis />
+                ) : (
+                  <PaginationLink
+                    className = " p-0 h-8 w-8"
+                    to={url+`${page}`}
+                    isActive={currentPage === page}
+                    onClick={() => onPageChange(page)}
+                  >
+                    {page}
+                  </PaginationLink>
+                )}
+              </PaginationItem>
+            ))}
+            <PaginationItem>
+              <PaginationNext
+                className="  h-8 w-8 text-center"
 
-              href="#"
-              onClick={() => currentPage < totalPages && onPageChange(currentPage + 1)}
-              disabled={currentPage === totalPages}
-            />
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination>
+                to={currentPage+1 <= totalPages ? url + `${currentPage+1}` : currentPage }
+                onClick={() => currentPage < totalPages && onPageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination> : <></>
+        
+        }
+      </>
     );
   }
   
@@ -122,7 +128,7 @@ export default PaginationComponent
 //         <PaginationItem>
 //           <PaginationPrevious
 //             className="h-8 w-8 text-center text-sm sm:text-base"
-//             href="#"
+//             to="#"
 //             onClick={() => currentPage > 1 && onPageChange(currentPage - 1)}
 //             disabled={currentPage === 1}
 //           />

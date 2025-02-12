@@ -15,7 +15,6 @@ import {
     AvatarFallback,
     AvatarImage,
   } from "@/components/ui/avatar"
-import useModal from "../../../hooks/modal"
 
 
 
@@ -24,22 +23,25 @@ import useModal from "../../../hooks/modal"
 
 
 const ScoreRow = (data) =>{
-    const[setModal] = useModal()
     return <tr className="border-b border-gray-200 hover:bg-gray-200">
               <td className="pl-4 p-1  whitespace-nowrap" >
   
   
               <Avatar className="h-8 w-8 rounded-lg">
-                      <AvatarImage src={data.data.personalImage} alt={"userImage"} />
+                      <AvatarImage src={data.data.student.personalImage} alt={"userImage"} />
                       <AvatarFallback className="rounded-lg">CN</AvatarFallback>
                   </Avatar>
               </td>
-              <td className="pl-4    whitespace-nowrap  " >{data.data.firstName}</td>
+              <td className="pl-4    whitespace-nowrap  " >{data.data.student.firstName}</td>
   
-              <td className="pl-4    whitespace-nowrap" >{data.data.lastName}</td>
+              <td className="pl-4    whitespace-nowrap" >{data.data.student.lastName}</td>
   
-              <td className="pl-4    whitespace-nowrap" >{data.data.email}</td>
-              <td className="pl-4    whitespace-nowrap" >
+              <td className="pl-4    whitespace-nowrap" >{data.data.exam.title}</td>
+              <td className="pl-4    whitespace-nowrap" >{data.data.marks}</td>
+              <td className="pl-4    whitespace-nowrap" >{data.data.status}</td>
+
+
+              {/* <td className="pl-4    whitespace-nowrap" >
   
               <DropdownMenu dir="rtl">
                 <DropdownMenuTrigger asChild>
@@ -56,7 +58,7 @@ const ScoreRow = (data) =>{
                     onClick={() => navigator.clipboard.writeText(payment.id)}
                   >
                        إزالة الطالب
-                  </DropdownMenuItem> */}
+                  </DropdownMenuItem> 
                   <DropdownMenuItem
                     onClick={() => {}}
                   >
@@ -71,7 +73,7 @@ const ScoreRow = (data) =>{
                   <DropdownMenuSeparator />
                 </DropdownMenuContent>
               </DropdownMenu>
-              </td>
+              </td> */}
   
   
               

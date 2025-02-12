@@ -11,14 +11,18 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
 import useModal from "../../../hooks/modal"
+import { formatDate } from "../../../lib/commonUtils"
 
 const ExamRow = (data) =>{
     const [ setModal ] = useModal()
     return <tr className="border-b border-gray-200 hover:bg-gray-200">
 
               <td className="pl-4    whitespace-nowrap  " >{data.data.title}</td>
-              <td className="pl-4    whitespace-nowrap" >{data.data.subject}</td>
-              <td className="pl-4    whitespace-nowrap" >{data.data.date}</td>
+              <td className="pl-4    whitespace-nowrap" >{data.data.subject.name}</td>
+              <td className="pl-4    whitespace-nowrap" >{formatDate(data.data.startDate)}</td>
+              <td className="pl-4    whitespace-nowrap" >{formatDate(data.data.endDate)}</td>
+              <td className="pl-4    whitespace-nowrap" >{`${data.data.creator.firstName} ${data.data.creator.lastName}`}</td>
+
               <td className="pl-4    whitespace-nowrap" >
   
               <DropdownMenu dir="rtl">
@@ -40,7 +44,7 @@ const ExamRow = (data) =>{
                   تعديل الإختبار
                 </DropdownMenuItem>
                 <DropdownMenuItem
-                  onClick={() => { setModal({type: "deleteExam",open: true, props : {id :"row.original.id" }})  }}
+                  onClick={() => { setModal({type: "deleteExam",open: true, props : {id :data.data._id }})  }}
                   className= "text-red-600"
                 >
                   حذف الإختبار

@@ -21,14 +21,15 @@ import { setExamDetails } from '../../../store/examSlice'
 import { useSelector } from 'react-redux'
 import DatePicker from '../../../components/date'
 import { Checkbox } from "@/components/ui/checkbox"
-import { Textarea } from "@/components/ui/textarea"
+import { useGetApiQuery } from "../../../store/apiSlice"
+// import { Textarea } from "@/components/ui/textarea"
 
 
 
 
 const ExamDetailsForm = ({setStep}) => {
   const selector = useSelector((state)=>state.exam)
-
+  const {data, isFetching, isError} = useGetApiQuery({url:"/subject"})
   const dispatcher = useDispatch()
   const {handleSubmit, handleChange, values, setFieldValue, errors, touched} = useFormik({
     initialValues :{
@@ -41,10 +42,6 @@ const ExamDetailsForm = ({setStep}) => {
     },
     validationSchema :examDetailsSchema ,
     onSubmit : (values)=>{
-      console.log(values)
-      console.log("===============")
-      
-
       dispatcher(setExamDetails(values))
       setStep(2)
     }
@@ -88,10 +85,13 @@ const ExamDetailsForm = ({setStep}) => {
                         <SelectValue placeholder="المادة" />
                       </SelectTrigger>
                       <SelectContent position="popper">
-                        <SelectItem value="next">Next.js</SelectItem>
-                        <SelectItem value="sveltekit">SvelteKit</SelectItem>
-                        <SelectItem value="astro">Astro</SelectItem>
-                        <SelectItem value="nuxt">Nuxt.js</SelectItem>
+                        {
+                          (data && (!isFetching && !isError)) ? 
+                          data.data.data.map((subject)=>{
+                            return <SelectItem key={subject._id} value={subject._id}>{subject.name}</SelectItem>
+
+                          }) : <SelectItem ></SelectItem>
+                        }
                       </SelectContent>
                     </Select>
                     { touched.subject && errors.subject && <label className='text-red-500 text-sm'>{errors.subject}</label>}
@@ -99,7 +99,7 @@ const ExamDetailsForm = ({setStep}) => {
 
                 <div className="flex flex-col w-full">
                   <Label  className="mb-2" >تعليق</Label>
-                  <Input id="name" placeholder="تعليق" onChange={()=>console.log("========")} />
+                  <Input id="name" name="comment" placeholder="تعليق" onChange={handleChange} />
                 </div>
               </div>
 

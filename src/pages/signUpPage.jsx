@@ -1,4 +1,3 @@
-import React from 'react'
 import Register from '../components/register'
 import MainLayout from '../components/mainLayout'
 const SignUpPage = () => {

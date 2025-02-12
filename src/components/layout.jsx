@@ -15,11 +15,13 @@ import {
   SidebarTrigger,
   
 } from "@/components/ui/sidebar"
+import GlobalLoading from "./featuers/globalLoading"
 import logo from "../assets/light-zolfa-removebg-min.webp"
 
   function Layout({children}) {
   return (
     <SidebarProvider dir="rtl" >
+    <GlobalLoading/> 
       <AppSidebar side="right" />
       <SidebarInset className="bg-gray-50 flex flex-col overflow-hidden" >
         <header className="flex justify-between h-14 shrink-0 items-center gap-2 border-b px-4 sticky top-0 bg-white rounded-lg customShadow m-1 md:m-4">

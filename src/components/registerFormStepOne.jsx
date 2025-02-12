@@ -1,14 +1,13 @@
-import React from 'react'
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useFormik } from 'formik'
 import { registerSchemaStep1 } from '../validation/auth'
 import { Button } from "@/components/ui/button"
-
-
+import { useNavigate } from 'react-router'
+import Loading from './loading'
 
 const RegisterFormStepOne = ({setValues, setStep, initialValues }) => {
-    
+      const navigate = useNavigate()
       const {handleChange, handleSubmit, values, errors, touched} = useFormik({
         initialValues ,
         validationSchema :  registerSchemaStep1,
@@ -28,7 +27,7 @@ const RegisterFormStepOne = ({setValues, setStep, initialValues }) => {
                     <Input
                       id="firstName" 
                       name = "firstName"
-                      placeholder="Name of your project" 
+                      placeholder="الإسم الأول" 
                       onChange={handleChange} 
                       value = {values.firstName}
                       />
@@ -39,7 +38,7 @@ const RegisterFormStepOne = ({setValues, setStep, initialValues }) => {
                     <Label htmlFor="lastName">الإسم الثاني</Label>
                     <Input
                       id="lastName"
-                      placeholder="Name of your project"
+                      placeholder="الإسم الثاني"
                       onChange={handleChange}
                       value = {values.lastName}
                       />
@@ -50,7 +49,7 @@ const RegisterFormStepOne = ({setValues, setStep, initialValues }) => {
                     <Label htmlFor="email" >البريد الإليكتروني</Label>
                     <Input 
                     id="email" 
-                    placeholder="Name of your project" 
+                    placeholder="البريد الإلبكتروني" 
                     onChange={handleChange}
                     value = {values.email}
 
@@ -62,7 +61,7 @@ const RegisterFormStepOne = ({setValues, setStep, initialValues }) => {
                     <Label htmlFor="password" >كلمة المرور</Label>
                     <Input 
                       id="password" 
-                      placeholder="Name of your project"
+                      placeholder="كلمة المرور"
                       onChange={handleChange} 
                       value = {values.password}
 
@@ -74,7 +73,7 @@ const RegisterFormStepOne = ({setValues, setStep, initialValues }) => {
                     <Label htmlFor="confirmPassword" >اعادة كلمة المرور </Label>
                     <Input 
                       id="confirmPassword" 
-                      placeholder="Name of your project" 
+                      placeholder="إعادة كلمة المرور" 
                       onChange={handleChange} 
                       value = {values.confirmPassword}
 
@@ -89,8 +88,11 @@ const RegisterFormStepOne = ({setValues, setStep, initialValues }) => {
           <div className=' mt-4'>
       
      
-          <Button type="submit" className="w-full" >التالي</Button>
-          <Button  variant="link" className="self-start" >لديك حساب بالفعل ؟ سجل الدخول</Button> 
+          <Button type="submit" className="w-full" 
+          >التالي
+
+</Button>
+          <Button type="button"  onClick= {()=>{navigate("/login")}}   variant="link" className="self-start" >لديك حساب بالفعل ؟ سجل الدخول</Button> 
         </div>
       </form>
   )

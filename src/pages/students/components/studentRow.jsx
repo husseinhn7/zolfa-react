@@ -39,6 +39,9 @@ const StudentRow = (data) =>{
               <td className="pl-4    whitespace-nowrap" >{data.data.lastName}</td>
   
               <td className="pl-4    whitespace-nowrap" >{data.data.email}</td>
+              <td className="pl-4    whitespace-nowrap" >{data.data.intake.name}</td>
+              <td className="pl-4    whitespace-nowrap" >{data.data.level.name}</td>
+
               <td className="pl-4    whitespace-nowrap" >
   
               <DropdownMenu dir="rtl">
@@ -58,13 +61,14 @@ const StudentRow = (data) =>{
                        إزالة الطالب
                   </DropdownMenuItem> */}
                   <DropdownMenuItem
-                    onClick={() => {}}
+                        onClick={() => { setModal({type: "addSupervisor",open: true, props : {id :data.data}})  }}
+
                   >
   
                     التعيين كمشرف 
                   </DropdownMenuItem>
                   <DropdownMenuItem
-                    onClick={() => { setModal({type: "deleteStudent",open: true, props : {id :"row.original.id" }})  }}
+                    onClick={() => { setModal({type: "deleteStudent",open: true, props : {id :data.data._id }})  }}
                                     >
                        إزالة الطالب
                   </DropdownMenuItem>

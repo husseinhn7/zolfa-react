@@ -27,6 +27,7 @@ import IntakesPage from './pages/intakes/intakesPage'
 import LevelsPage from './pages/levels/levelsPage'
 import AddExamPage from './pages/addExam/addExamPage'
 import ScoresPage from './pages/scores/scoresPage'
+import MainLayout from './components/mainLayout'
 function App() {
 
   return (
@@ -43,15 +44,17 @@ function App() {
         <Route  path='/scores'  element={<ScoresPage/>}   />
 
         <Route  path='/levels'  element={<LevelsPage/>}   />
+        <Route  path='/home'  element={<div/>}   />
+
+        <Route  path='/settings'  element={<div/>}   />
+
 
 
 
 
         
 
-          <Route  path='/login'  element={<LoginPage/>}   />
-          <Route  path='/signUp'  element={<SignUpPage/>}   />
-          <Route  path='/forgot-password'  element={<ForgotPasswordPage/>}   />
+        
           <Route  path='/m'  element={<Wizard/>}   />
           <Route  path='/s'  element={<ExamAnswer/>}   />
           <Route  path='/ss'  element={<Exam/>}   />
@@ -59,6 +62,13 @@ function App() {
           <Route  path='/test'  element={<Test />}   />
 
       </Route>
+      {/* <Route element={<MainLayout/>}> */}
+
+        <Route  path='/login'  element={<LoginPage/>}   />
+        <Route  path='/signUp'  element={<SignUpPage/>}   />
+        <Route  path='/forgot-password'  element={<ForgotPasswordPage/>}   />
+      
+      {/* </Route> */}
 
 
 

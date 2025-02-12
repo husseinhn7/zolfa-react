@@ -1,69 +1,63 @@
 
 /* eslint-disable react/prop-types */
-import { ChevronDown } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button"; 
 import { Input } from "@/components/ui/input";
+import useModal from "../../../hooks/modal";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+   SelectValue,
+} from "@/components/ui/select"
+import { useGetApiQuery } from "../../../store/apiSlice";
 
 
+const TableHead = ({setSearchParams}) => {
+  const [ setModal] = useModal()
+  const { data: levels, isFetching : levelsFetching } = useGetApiQuery({url : "/level"})
 
-const TableHead = () => {
 return (
-  <div className="flex items-center mb-4 gap-4 justify-between">
+  <div className="flex-col md:flex-row flex items-center mb-4 gap-4 justify-between">
             
-              <div className="flex w-full gap-3 md:w-1/2 "> 
-            <Input
+            <div className="flex w-full gap-3 grow"> 
+              <Input
               placeholder="البحث عن مادة"
-              // value={(table.getColumn("email")?.getFilterValue()) ?? ""}
-              // onChange={(event) =>
-              //   table.getColumn("email")?.setFilterValue(event.target.value)
-              // }
+              onChange={(event) =>
+                  setSearchParams((prev)=>{return {...prev, subject : event.target.value.trim()}})
+                }
               className="max-w-sm"
             />
+            <Select dir='rtl' name="level" 
+                  onValueChange={(value)=>{setSearchParams((prev)=>{return {...prev, level : " " != value ? value : ""}})}}
+
+                  >
+                            <SelectTrigger id="level">
+                              <SelectValue placeholder="المستوي" />
+                            </SelectTrigger>
+                            <SelectContent position="popper">
+                            <SelectItem value={" "}>كل المستويات</SelectItem>
+
+                              {
+                                levels && !levelsFetching ? levels.data.data.map((level)=>{
+                                  return  <SelectItem key={level._id} value={level._id}>{level.name}</SelectItem>
+                  
+                                }) : null
+                              }
+                  
+                            </SelectContent>
+                  </Select>
              
-              <Button variant="outline">بحث</Button>
-            </div>
+             
+             </div>
             <div className="flex gap-2">
   
            
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="outline" className="ml-auto">
-  
-                    Columns <ChevronDown />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
+             
+              <Button  className="h-full bg-green-500 hover:bg-green-700" 
+                             onClick={() => {setModal({type: "addSubject",open: true})  }}
 
-                <DropdownMenuCheckboxItem
-                      //   key={column.id}
-                      //   className="capitalize"
-                      //   checked={column.getIsVisible()}
-                      //   onCheckedChange={(value) => column.toggleVisibility(!!value)}
-                      >
-                      hiiiiiiiiii
-                      </DropdownMenuCheckboxItem>
-                  {/* {table
-                    .getAllColumns()
-                    .filter((column) => column.getCanHide())
-                    .map((column) => (
-                      <DropdownMenuCheckboxItem
-                        key={column.id}
-                        className="capitalize"
-                        checked={column.getIsVisible()}
-                        onCheckedChange={(value) => column.toggleVisibility(!!value)}
-                      >
-                        {column.id}
-                      </DropdownMenuCheckboxItem>
-                    ))} */}
-                </DropdownMenuContent>
-              </DropdownMenu>
-              <Button  className="h-full bg-green-500 hover:bg-green-700" >  
+              >  
               
               إضافة مادة
 

@@ -12,26 +12,30 @@ import {
 
   import { Button } from "@/components/ui/button"
     import useModal from "../../../hooks/modal"
-    import useApiToast from "../../../hooks/apiToast"
-    import useLoading from "../../../hooks/loading"
-    import { useDeleteApiMutation } from "../../../store/apiSlice"
-const DeleteStudentModal = ({id}) => {
-  const { handleApiResponse } = useApiToast()
-  const [deleteApi] = useDeleteApiMutation()
-  const [setLoading] = useLoading()
 
+    import useApiToast from "../../../hooks/apiToast"
+import useLoading from "../../../hooks/loading"
+import { useDeleteApiMutation } from "../../../store/apiSlice"
+
+
+
+const DeleteSupervisorModal = () => {
+    const { handleApiResponse } = useApiToast()
+    const [deleteApi] = useDeleteApiMutation()
+    const [setLoading] = useLoading()
   
-  const handelDeleteStudent = async () =>{
-    setLoading(true)
-   const response = await deleteApi({url : `/student/${id}`, tag : "student"})
-   handleApiResponse("حذف طالب", response)
- }
-  return (
+    
+    const handelDeleteSupervisor = async () =>{
+      setLoading(true)
+        const response = await deleteApi({url : `/admin/${id}`, tag : "admin"})
+        handleApiResponse("حذف مشرف", response)
+   }
+   return (
     <>
     <DialogHeader className="p-4">
                             <DialogTitle>
                             <h1 className=' text-xl  flex w-full  items-center justify-center' dir='ltr'>
-                      هل تريد إزالة هذا الطالب ؟
+                      هل تريد إزالة هذا المشرف ؟
                             </h1>
                             </DialogTitle>
           
@@ -40,7 +44,7 @@ const DeleteStudentModal = ({id}) => {
                                   <DialogClose  className="w-full flex justify-evenly mb-4 ">
                           
                                  <Button 
-                                         onClick = {()=>{handelDeleteStudent()}}
+                                        onClick = {()=>{handelDeleteSupervisor()}}
                                  className=" bg-red-600 h-8 w-1/3 hover:bg-red-700" type="button"  >  
                                      إزالة
                                   </Button>
@@ -57,4 +61,4 @@ const DeleteStudentModal = ({id}) => {
   )
 }
 
-export default DeleteStudentModal
+export default DeleteSupervisorModal

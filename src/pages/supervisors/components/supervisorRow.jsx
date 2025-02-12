@@ -1,12 +1,9 @@
-
-
 import {  MoreHorizontal } from "lucide-react"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
@@ -15,15 +12,13 @@ import {
     AvatarFallback,
     AvatarImage,
   } from "@/components/ui/avatar"
-
-
-
-
-
+import useModal from "../../../hooks/modal"
 
 
 
 const SupervisorRow = (data) =>{
+  const[setModal] = useModal()
+
     return <tr className="border-b border-gray-200 hover:bg-gray-200">
               <td className="pl-4 p-1  whitespace-nowrap" >
   
@@ -51,24 +46,21 @@ const SupervisorRow = (data) =>{
                   <DropdownMenuLabel>
                       الخيارات
                   </DropdownMenuLabel>
-                  <DropdownMenuItem
-                    onClick={() => navigator.clipboard.writeText(payment.id)}
-                  >
-                       إزالة الطالب
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
-                    onClick={() => navigator.clipboard.writeText(payment.id)}
+                 
+                  {/* <DropdownMenuItem
+                  onClick={() => { setModal({type: "editSupervisor",open: true, props : {data :data.data }})  }}
+
                   >
   
-                    التعيين كمشرف 
-                  </DropdownMenuItem>
+                    تعديل الصلاحيات  
+                  </DropdownMenuItem> */}
                   <DropdownMenuItem
-                    onClick={() => navigator.clipboard.writeText(payment.id)}
+                    onClick={() => { setModal({type: "deleteSupervisor",open: true, props : {id :data.data._id }})  }}
+                    className=""
                   >
-                       إزالة الطالب
+                       إزالة المشرف
                   </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                </DropdownMenuContent>
+                 </DropdownMenuContent>
               </DropdownMenu>
               </td>
   

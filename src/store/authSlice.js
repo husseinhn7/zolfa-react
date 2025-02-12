@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 
 const calculateExpDate = (incomingToken) =>{
-    const token = incomingToken.split(" ")[1]
+    const token = incomingToken 
     const decodedToken = jwtDecode(token);
     if (decodedToken.exp !== undefined){
         const expInMilliseconds = decodedToken.exp * 1000; 
@@ -24,10 +24,13 @@ const authSlice = createSlice({
     initialState,
     reducers :{
         login : (state, payload) =>{
+            console.log("=====================")
+            console.log(payload)
             const expDate = calculateExpDate(payload.payload)
             Cookies.set("token", payload.payload, { expires : expDate })
             state.token = payload.payload
             state.isAuth = true
+        
         },
         logout : (state) =>{
             Cookies.remove("token")

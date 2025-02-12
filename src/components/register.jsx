@@ -8,6 +8,8 @@ import {
 import Wizard from './wizzard'
 import RegisterFormStepOne from './registerFormStepOne'
 import RegisterFormStepTwo from './registerFormStepTwo'
+
+
 const Register = () => {
   const [step, SetStep] = useState(1)
   const stepOneInitialValues = {
@@ -21,7 +23,7 @@ const Register = () => {
 
   
   return (
-    <Card className="w-[450px] " dir="rtl">
+    <Card className="w-[90vw]  md:w-[40vw] xl:w-[30vw] customShadow rounded-lg" dir="rtl">
 
       <CardHeader>
          <CardTitle>إنشاء حساب جديد</CardTitle>

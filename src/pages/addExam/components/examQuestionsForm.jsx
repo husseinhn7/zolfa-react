@@ -23,7 +23,7 @@ const ExamQuestionsForm = ({setStep}) => {
 
       <div  className="w-full md:flex  bg flex-col md:flex-row  h-full pb-4"  >
 
-     <div className=' h-full  flex flex-col gap-2 p-5  w-1/3'>
+     <div className=' h-full hidden md:flex flex-col gap-2 p-5  w-1/3'>
       <div className=' w-full bg-gray-100  p-2 text-center rounded-lg'> 
       {selector.title}
       </div>

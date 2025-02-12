@@ -1,34 +1,24 @@
 
 /* eslint-disable react/prop-types */
-import { ChevronDown } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 
 
 
-const TableHead = () => {
+const TableHead = ({setAdmin}) => {
 return (
   <div className="flex items-center mb-4 gap-4 justify-between">
             
-            <div className="flex w-full gap-3 md:w-1/2 ">
+            <div className="flex w-full gap-3   md:w-1/2 ">
                   <Input
-              placeholder="البحث عن مشرف"
-              // value={(table.getColumn("email")?.getFilterValue()) ?? ""}
-                  // onChange={(event) =>
-                  //   table.getColumn("email")?.setFilterValue(event.target.value)
-                  // }
-                  className="max-w-sm"
+                   placeholder="البحث عن مشرف"
+                  className="w-full"
+                  onChange={(event) =>
+                    setAdmin( event.target.value.trim())
+                }
                 />
                 
                 
-                  <Button variant="outline">بحث</Button>
-            </div>
+             </div>
             {/* <div className="flex gap-2">
   
            

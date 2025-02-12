@@ -2,42 +2,40 @@ import * as Yup from 'yup';
 
 const loginSchema = Yup.object().shape({
   email: Yup.string()
-    .email('Invalid email format')
-    .required('Email is required'),
+    .email('البريد الإلكتروني غير صالح')
+    .required('البريد الإلكتروني مطلوب'),
   password: Yup.string()
-    .min(8, 'Password must be at least 8 characters')
-    .required('Password is required')
+    .min(8, 'يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل')
+    .required('كلمة المرور مطلوبة')
 });
 
-
 export const registerSchemaStep1 = Yup.object({
-  // Step 1 fields
+  // الحقول الخاصة بالخطوة الأولى
   firstName: Yup.string()
-    .required("الإسم الأول is required")
-    .max(50, "الإسم الأول should not exceed 50 characters"),
+    .required("الاسم الأول مطلوب")
+    .max(50, "يجب ألا يتجاوز الاسم الأول 50 حرفًا"),
   lastName: Yup.string()
-    .required("الإسم الثاني is required")
-    .max(50, "الإسم الثاني should not exceed 50 characters"),
+    .required("الاسم الأخير مطلوب")
+    .max(50, "يجب ألا يتجاوز الاسم الأخير 50 حرفًا"),
   email: Yup.string()
-    .email("Invalid email format")
-    .required("البريد الإليكتروني is required"),
+    .email("البريد الإلكتروني غير صالح")
+    .required("البريد الإلكتروني مطلوب"),
   password: Yup.string()
-    .required("كلمة المرور is required")
-    .min(8, "كلمة المرور should be at least 8 characters long"),
+    .required("كلمة المرور مطلوبة")
+    .min(8, "يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل"),
   confirmPassword: Yup.string()
-    .oneOf([Yup.ref("password"), null], "Passwords must match")
-    .required("اعادة كلمة المرور is required"),
-
-  
+    .oneOf([Yup.ref("password"), null], "يجب أن تتطابق كلمات المرور")
+    .required("تأكيد كلمة المرور مطلوب"),
 });
 
 export const registerSchemaStep2 = Yup.object({
-    intake: Yup.string().required("Please select a framework"),
-    level: Yup.string().required("Please select a framework"),
-    gender: Yup.string().required("Please select a framework"),
+    intake: Yup.string().required("الرجاء اختيار الدفعة"),
+    level: Yup.string().required("الرجاء اختيار المستوى"),
+    gender: Yup.string().required("الرجاء تحديد الجنس"),
     birthDate: Yup.date()
-      .required("Please select a date")
+      .required("الرجاء اختيار تاريخ الميلاد")
       .nullable(),  
     personalImage: Yup.mixed().optional(),
-})
+});
+
 export default loginSchema;

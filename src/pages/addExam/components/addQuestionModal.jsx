@@ -12,14 +12,14 @@ import { Label } from "@/components/ui/label"
 import { useFormik } from 'formik'
 import { questionSchema } from '../../../validation/examValidation'
 import { addQuestion } from '../../../store/examSlice'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch} from 'react-redux'
 import AddOptions from '../../../components/addOptions'
 import { Textarea } from "@/components/ui/textarea"
 import useModal from '../../../hooks/modal'
 
 
 const AddQuestionModal = () => {
-    const [_,closeModal] = useModal()
+    const [,closeModal] = useModal()
   const { toast } = useToast()
   const [resetOptions, setResetOptions] = useState(false)
   const dispatcher = useDispatch() 
@@ -51,7 +51,7 @@ const AddQuestionModal = () => {
   return (
         <Card className="p-2 m-0 " dir="rtl">
       
-        <CardContent className=" px-2  ">
+        <CardContent className=" px-2 pb-2 ">
           <form onSubmit={handleSubmit}>
                   <div className="flex flex-col space-y-1.5 my-2 grow ">
                     <Label   className="text-sm">السؤال</Label>
@@ -81,23 +81,23 @@ const AddQuestionModal = () => {
                   </div>
                     <div className="grid w-full items-center gap-4">
                   
-                    <AddOptions 
-                      options={values.options} 
-                      handler={setFieldValue} 
-                      correctOption={values.correctOption}
-                      reset={resetOptions}
-                      setRest={setResetOptions}
-                    />
-                    {touched.options && errors.options && <label className='text-red-500 text-sm'>{errors.options}</label>}
-                    {touched.correctOption && errors.correctOption && <label className='text-red-500 text-sm'>{errors.correctOption}</label>}
+                            <AddOptions 
+                              options={values.options} 
+                              handler={setFieldValue} 
+                              correctOption={values.correctOption}
+                              reset={resetOptions}
+                              setRest={setResetOptions}
+                            />
+                            {touched.options && errors.options && <label className='text-red-500 text-sm'>{errors.options}</label>}
+                            {touched.correctOption && errors.correctOption && <label className='text-red-500 text-sm'>{errors.correctOption}</label>}
 
-                    <div className="flex flex-col space-y-1.5">
-                  
-              </div>
+                            <div className="flex flex-col space-y-1.5">
+                          
+                      </div>
 
-            
-            </div> 
-            <div className=' flex justify-between'>
+                    
+                    </div> 
+            <div className=' flex justify-between '>
 
             <Button variant="outline" type="button" className="text-xs h-8 w-1/4 m-0 border-red-500 text-red-500" onClick={()=>{resetForm();closeModal()}} >
                 إلغاء
@@ -108,10 +108,7 @@ const AddQuestionModal = () => {
                 حفظ وإضافة 
 
             </Button>
-            {/* <Button variant="outline" type="submit" className="text-xs h-8 w-1/4 m-0 border-green-500 text-green-500" onClick={()=>{console.log(errors);if(!errors){console.log("------"); closeModal()}}} >
-
-                                حفظ ومتابعة
-            </Button> */}
+            
 
 
             </div>

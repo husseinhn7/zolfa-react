@@ -2,7 +2,7 @@ import { Outlet } from 'react-router'
 import { Navigate } from 'react-router'
 import Layout from '../layout'
 import GlobalModal from './globalModal'
-
+import GlobalLoading from './globalLoading'
 
 
 

@@ -18,7 +18,7 @@ const SubjectRow = (data) =>{
     return <tr className="border-b border-gray-200 hover:bg-gray-200">
 
               <td className="pl-4    whitespace-nowrap  " >{data.data.name}</td>
-              <td className="pl-4    whitespace-nowrap" >{data.data.level}</td>
+              <td className="pl-4    whitespace-nowrap" >{data.data.level.name}</td>
               <td className="pl-4    whitespace-nowrap" >
   
               <DropdownMenu dir="rtl">
@@ -35,14 +35,16 @@ const SubjectRow = (data) =>{
                 <DropdownMenuSeparator />
 
                 <DropdownMenuItem
+            onClick={() => {setModal({type: "editSubject",open: true, props : {data :data.data }})  }}
+
                 >
-          تعديل الدفعة
+          تعديل المادة
                 </DropdownMenuItem>
                 <DropdownMenuItem
-                  onClick={() => {setModal({type: "2",open: true, props : {id :"row.original.id" }})  }}
-                  className= "text-red-600"
+               onClick={() => {setModal({type: "deleteSubject",open: true, props : {id :data.data._id}})  }}
+               className= "text-red-600"
                 >
-                  حذف الدفعة
+                  حذف المادة
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

@@ -3,35 +3,40 @@ import TableHead from './components/tableHead';
 import useTable from '../../hooks/table';
 import LevelRow from './components/levelRow';
 import PaginationComponent from '../../components/pagination';
-const subjects = [
-    { name: "Mathematics",startDate: 1 },
-    { name: "Physics",startDate: 2 },
-    { name: "Chemistry",startDate: 3 },
-    { name: "Biology",startDate: 1 },
-    { name: "Computer Science",startDate: 4 },
-    { name: "History",startDate: 2 },
-    { name: "Geography",startDate: 3 },
-    { name: "English Literature",startDate: 1 },
-    { name: "Economics",startDate: 4 },
-    { name: "Psychology",startDate: 2 },
-  ];
-  
+import { useGetApiQuery } from "../../store/apiSlice";
+import ErrorHandler from "../../components/errorHandler";
+import { useSearchParams } from "react-router-dom";
+import { useState } from 'react';
 
 const LevelsPage = () => {
   const [Table] = useTable()
+  const [level, setLevel] = useState("")
+
+  const [params] = useSearchParams()
+  const currentPage = parseInt(params.get("page"))  || 1
+  const {data, isFetching, error, isError} = useGetApiQuery({url:`/level?limit=10&page=${currentPage}&name=${level}`, tag:"level"})
+  console.log(data)
   return (
    
     <div className="w-full min-w-full max-w-[calc(100vw-6rem)] bg-white p-4 rounded-lg border customShadow h-full flex flex-col  overflow-x-scroll">
-    <TableHead />
-    <Table  data={subjects} head={[  "اسم المستوى","التاريخ"]} Row={LevelRow}        />
-    <div className="flex items-center justify-between space-x-2 pt-4">
-          <PaginationComponent
-            currentPage={5}
-            totalPages={10}
-            onPageChange={(page) => console.log("Go to page:", page)}
-          />
+
+
+    <TableHead setLevel = {setLevel} />
+          <ErrorHandler data={data} isFetching={isFetching} error={error}>
+            {
+             ( data && !isError) && <>    
+                <Table  data={data.data.data} head={[  "اسم المستوى","تاريخ البدء " ,"تاريخ الإنتهاء"]} Row={LevelRow}        />
+                <div className="flex items-center justify-between space-x-2 pt-4">
+                      <PaginationComponent
+                        currentPage={5}
+                        totalPages={data.data.totalPages}
+                      />
+                    </div>
+
+              </>
+              }
+          </ErrorHandler>
         </div>
-  </div>
   )
 }
 

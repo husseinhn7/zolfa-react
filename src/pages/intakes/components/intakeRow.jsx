@@ -14,11 +14,11 @@ import useModal from "../../../hooks/modal"
 
 
 const IntakeRow = (data) =>{
-    const [setModal] = useModal()
+     const [setModal] = useModal()
     return <tr className="border-b border-gray-200 hover:bg-gray-200">
 
               <td className="pl-4    whitespace-nowrap  " >{data.data.name}</td>
-              <td className="pl-4    whitespace-nowrap" >{data.data.level}</td>
+              <td className="pl-4    whitespace-nowrap" >{data.data.level.name}</td>
               <td className="pl-4    whitespace-nowrap" >
   
               <DropdownMenu dir="rtl">
@@ -35,11 +35,13 @@ const IntakeRow = (data) =>{
                 <DropdownMenuSeparator />
 
                 <DropdownMenuItem
+                onClick={() => {setModal({type: "editIntake",open: true, props : {data :data }})  }}
+
                 >
-          تعديل الدفعة
+                     تعديل الدفعة
                 </DropdownMenuItem>
                 <DropdownMenuItem
-                  onClick={() => {setModal({type: "2",open: true, props : {id :"row.original.id" }})  }}
+                  onClick={() => {setModal({type: "deleteIntake",open: true, props : {id :data.data._id }})  }}
                   className= "text-red-600"
                 >
                   حذف الدفعة
