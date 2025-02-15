@@ -23,7 +23,7 @@ import {
 
 
 const ScoreRow = (data) =>{
-    return <tr className="border-b border-gray-200 hover:bg-gray-200">
+    return <tr className="border-b border-gray-200 hover:bg-gray-200 h-10">
               <td className="pl-4 p-1  whitespace-nowrap" >
   
   

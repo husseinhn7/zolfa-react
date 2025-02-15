@@ -1,9 +1,12 @@
+
+
 import {  MoreHorizontal } from "lucide-react"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
@@ -12,28 +15,30 @@ import {
     AvatarFallback,
     AvatarImage,
   } from "@/components/ui/avatar"
-import useModal from "../../../hooks/modal"
 
 
 
-const SupervisorRow = (data) =>{
-  const[setModal] = useModal()
 
+
+
+
+const ScoreRow = (data) =>{
     return <tr className="border-b border-gray-200 hover:bg-gray-200 h-10">
-              <td className="pl-4 p-1  whitespace-nowrap" >
+              {/* <td className="pl-4 p-1  whitespace-nowrap" >
   
   
               <Avatar className="h-8 w-8 rounded-lg">
-                      <AvatarImage src={data.data.personalImage} alt={"userImage"} />
+                      <AvatarImage src={data.data.student.personalImage} alt={"userImage"} />
                       <AvatarFallback className="rounded-lg">CN</AvatarFallback>
                   </Avatar>
-              </td>
-              <td className="pl-4    whitespace-nowrap  " >{data.data.firstName}</td>
+              </td> */}
   
-              <td className="pl-4    whitespace-nowrap" >{data.data.lastName}</td>
-  
-              <td className="pl-4    whitespace-nowrap" >{data.data.email}</td>
-              <td className="pl-4    whitespace-nowrap" >
+              <td className="pl-4    whitespace-nowrap" >{data.data.exam.title}</td>
+              <td className="pl-4    whitespace-nowrap" >{data.data.marks}</td>
+              <td className="pl-4    whitespace-nowrap" >{data.data.status}</td>
+
+
+              {/* <td className="pl-4    whitespace-nowrap" >
   
               <DropdownMenu dir="rtl">
                 <DropdownMenuTrigger asChild>
@@ -46,29 +51,32 @@ const SupervisorRow = (data) =>{
                   <DropdownMenuLabel>
                       الخيارات
                   </DropdownMenuLabel>
-                 
                   {/* <DropdownMenuItem
-                  onClick={() => { setModal({type: "editSupervisor",open: true, props : {data :data.data }})  }}
-
+                    onClick={() => navigator.clipboard.writeText(payment.id)}
                   >
-  
-                    تعديل الصلاحيات  
-                  </DropdownMenuItem> */}
+                       إزالة الطالب
+                  </DropdownMenuItem> 
                   <DropdownMenuItem
-                    onClick={() => { setModal({type: "deleteSupervisor",open: true, props : {id :data.data._id }})  }}
-                    className=""
+                    onClick={() => {}}
                   >
-                       إزالة المشرف
+  
+                    التعيين كمشرف 
                   </DropdownMenuItem>
-                 </DropdownMenuContent>
+                  <DropdownMenuItem
+                    onClick={() => { setModal({type: "deleteStudent",open: true, props : {id :"row.original.id" }})  }}
+                                    >
+                       إزالة الطالب
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                </DropdownMenuContent>
               </DropdownMenu>
-              </td>
+              </td> */}
   
   
-  
+              
   
     </tr>
   
   }
 
-export default SupervisorRow
+export default ScoreRow

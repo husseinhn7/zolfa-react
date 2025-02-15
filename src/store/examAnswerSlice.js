@@ -19,13 +19,18 @@ const examAnswerSlice = createSlice({
     name : "examAnswer",
     reducers : {
         setExamDetails : (state, payload)=>{
-    
+            return {
+                ...state,
+                exam : payload.payload.exam,
+                questions : payload.payload.exam.questions
+            }
         },
         setCurrentQuestion : (state, payload) =>{
             state.currentQuestion = payload.payload
         },
         addAnswer : (state, payload) =>{
-            state.answers.push(payload.payload)
+            const newAnswers  = state.answers.filter((ans)=> ans.question != payload.payload.question)
+            state.answers = [...newAnswers, payload.payload]
         },
         addMarkedQuestion : (state, payload) =>{
             if(!state.markedQuestions.includes(payload.payload)){
@@ -48,9 +53,9 @@ const examAnswerSlice = createSlice({
         deleteQuestion : (state, payload)=>{
             state.questions = state.questions.filter((_, index) => index !== payload.payload);
         },
-        editQuestion : (state, payload)=>{
+        // editQuestion : (state, payload)=>{
             
-        } 
+        // } 
     }
 })
 

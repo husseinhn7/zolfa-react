@@ -20,8 +20,7 @@ import { login } from '../store/authSlice'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router'
 import Loading from './loading'
-
-
+import useLocalStorage from '../hooks/localstorage'
 
 
 const RegisterFormStepTwo = ({stepOneData, setStep}) => {
@@ -32,6 +31,12 @@ const RegisterFormStepTwo = ({stepOneData, setStep}) => {
     const { data : intakes, isFetching:intakeFetching } = useGetApiQuery({url : "/intake"})
     const { data: levels, isFetching : levelsFetching } = useGetApiQuery({url : "/level"})
     const [ postApi, {isFetching}  ] = usePostApiMutation()
+    const [user, setUser] = useLocalStorage("user", {
+      firstName: "",
+      lastName: "",
+      email: "",
+      personalImage: "",
+    })
     const initialValues = {
         gender : "", 
         level : "",
@@ -50,7 +55,14 @@ const RegisterFormStepTwo = ({stepOneData, setStep}) => {
             const response = await postApi({url : "/auth/register", body:{...values, ...stepOneData}})
             if (response.data){
               dispatch(login(response.data.token))
-              navigate("/exams")              
+              setUser({
+                firstName : response.data.user.firstName,
+                lastName : response.data.user.lastName,
+                role : response.data.user.role,
+                email : response.data.user.email,
+                personalImage : response.data.user.personalImage,
+              })
+              navigate("/next-exams")             
          }
          handleApiResponse("إنشاء حساب", response )
         }

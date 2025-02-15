@@ -20,7 +20,7 @@ const Table = ({head, data}) => {
         {/* Table Body */}
         <tbody className="overflow-y-auto">
           {data.map((obj, index) => (
-            <tr key={index} className="border-b border-gray-200 hover:bg-gray-200">
+            <tr key={index} className="border-b border-gray-200 hover:bg-gray-200 h-10">
                    { head.map((p, index)=>{
                         return <td key={index} className="px-4  py-2 whitespace-nowrap">{obj[`${p}`]}</td>
 

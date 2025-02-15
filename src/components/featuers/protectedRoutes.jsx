@@ -1,20 +1,16 @@
 import { Outlet } from 'react-router'
 import { Navigate } from 'react-router'
 import Layout from '../layout'
-import GlobalModal from './globalModal'
-import GlobalLoading from './globalLoading'
-
+import { useSelector } from 'react-redux'
 
 
 const ProtectedRoutes = () => {
-    // const auth = useSelector((state : RootState)=>state.auth)
-    const auth = true
-    if ( false){
+    const auth = useSelector((state)=>state.auth)
+    if ( !auth.isAuth){
         return <Navigate to="/login" /> 
     }
-
     
-  return   <Layout> <GlobalModal/> <Outlet/>  </Layout>
+  return   <Layout>  <Outlet/>  </Layout>
   
   
 }

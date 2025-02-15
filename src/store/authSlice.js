@@ -24,8 +24,7 @@ const authSlice = createSlice({
     initialState,
     reducers :{
         login : (state, payload) =>{
-            console.log("=====================")
-            console.log(payload)
+
             const expDate = calculateExpDate(payload.payload)
             Cookies.set("token", payload.payload, { expires : expDate })
             state.token = payload.payload

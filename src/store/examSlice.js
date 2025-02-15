@@ -10,6 +10,7 @@ const initialState = {
     final: "",  
     subject: "", 
     comment: "", 
+    duration:2,
     questions : []
 
 }

@@ -14,12 +14,18 @@ import { login } from "../store/authSlice"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router"
 import useApiToast from "../hooks/apiToast"
-
+import useLocalStorage from "../hooks/localstorage"
 const Login = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [postApi] = usePostApiMutation()
   const { handleApiResponse } = useApiToast()
+  const [user, setUser] = useLocalStorage("user", {
+    firstName: "",
+    lastName: "",
+    email: "",
+    personalImage: "",
+  })
   const {handleSubmit, handleChange, values, errors} = useFormik({
     initialValues : {
       email : "",
@@ -31,7 +37,14 @@ const Login = () => {
       console.log(response.data)
       if (response.data){
           dispatch(login(response.data.token))
-          navigate("/")
+          setUser({
+            firstName : response.data.user.firstName,
+            lastName : response.data.user.lastName,
+            role : response.data.user.role,
+            email : response.data.user.email,
+            personalImage : response.data.user.personalImage,
+          })
+          navigate("/next-exams")
       }
       handleApiResponse("تسجيل الدخول", response)
     }

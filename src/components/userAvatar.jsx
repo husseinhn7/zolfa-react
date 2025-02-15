@@ -30,9 +30,12 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar"
 import { VscAccount } from "react-icons/vsc";
+import { Link } from "react-router-dom";
+import useModal from "../hooks/modal";
 
 export function NavUser({ user }) {
   const { isMobile } = useSidebar()
+  const [setModal] = useModal()
 
   return (
     <SidebarMenu className="bg-gray-50">
@@ -45,7 +48,7 @@ export function NavUser({ user }) {
             >
               <Avatar className="h-8 w-8 rounded-lg">
                 <AvatarImage src={user.avatar} alt={user.name} />
-                <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                <AvatarFallback className="rounded-lg"><img src="/bgg.jpg" /></AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-semibold">{user.name}</span>
@@ -75,17 +78,21 @@ export function NavUser({ user }) {
             
             <DropdownMenuSeparator />
             <DropdownMenuGroup  dir = "rtl">
-              <DropdownMenuItem>
+            <Link to='/profile'>
+              <DropdownMenuItem >
                 <VscAccount />
                 الصفحة الشخصية
               </DropdownMenuItem>
+            </Link>
+              
               <DropdownMenuItem>
                 <Bell />
                 الإشعارات
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem  dir = "rtl">
+            <DropdownMenuItem  dir = "rtl" onClick={() => {setModal({type: "logout",open: true})  }
+}>
               <LogOut />
               تسجيل الخروج
             </DropdownMenuItem>

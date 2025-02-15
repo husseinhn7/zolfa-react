@@ -34,8 +34,8 @@ import EditSubjectModal from "../../pages/subjects/components/editSubjectModal"
 import AddSubjectModal from "../../pages/subjects/components/addSubjectModal"
 
 import DeleteSupervisorModal from "../../pages/supervisors/components/deleteAdminModal"
-
-
+import LogoutModal from "../logoutModal"
+import ConfirmSubmission from "../confirmSubmission"
 
 
 
@@ -57,7 +57,9 @@ const modalList  = {
     "deleteSubject" : DeleteSubjectModal,
     "editSubject" : EditSubjectModal,
     "addSubject": AddSubjectModal, 
-    "deleteSupervisor" : DeleteSupervisorModal
+    "deleteSupervisor" : DeleteSupervisorModal,
+    "logout" : LogoutModal, 
+    "confirm" : ConfirmSubmission
 
 }
 

@@ -11,9 +11,9 @@ const useTable  = () =>{
                 <tr className="border-b border-gray-300">
                   {
                       head.map((name, index )=>{
-                          return (<>
+                          return (
                                     <th key={index} className="pl-5 py-2  whitespace-nowrap text-right">{name}</th>
-                                 </>
+                                 
       
                           )
                       })

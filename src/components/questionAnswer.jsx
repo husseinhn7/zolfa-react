@@ -16,17 +16,13 @@ const QuestionAnswer = () => {
 
 
   const handelNext = () =>{
-    if(currentQuestion +1 < questions.length){
-      
+
     if(answer.answer){
-      dispatcher(addAnsweredQuestion(answer))
-      dispatcher(addAnswer(answer))
-    }
-    setAnswer({})
-    dispatcher(setCurrentQuestion(currentQuestion+1))
-  }
-}
-  // console.log(answer)
+        if (currentQuestion +1 < questions.length){            
+            setAnswer({})
+            dispatcher(setCurrentQuestion(currentQuestion+1))
+        }
+}}
   return (
     <>
     
@@ -47,14 +43,20 @@ const QuestionAnswer = () => {
     {
       question.options.map((option, index)=>{
         return (
+          
           <button key={option.id} 
               className={` flex px-4 border-2 gap-4 ${ansId == option.id ? " border-green-500":"border-gray-200 "}  rounded-md py-2 items-center`}
-              onClick={()=>{setAnswer({
+              onClick={()=>{
+                const ans = {
                 question:question._id,
                 answer : option.id
-              })}}
-              
-              
+              }
+
+
+
+                dispatcher(addAnsweredQuestion(ans))
+                dispatcher(addAnswer(ans))         
+                setAnswer(ans)}}
               >
             <span 
               className={` rounded-full flex items-center justify-center ${answer.answer == option.id ? " bg-green-500 text-white":"bg-gray-200 "} h-8 w-8`}

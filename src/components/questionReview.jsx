@@ -1,12 +1,16 @@
-import React from 'react'
 import { Button } from "@/components/ui/button"
 import { useSelector, useDispatch } from 'react-redux'
 import { getColor } from '../util/helpers'
 import { setCurrentQuestion } from '../store/examAnswerSlice'
-import Countdown from 'react-countdown'
-
-const QuestionReview = () => {
+  import {
+    SheetClose,
+   
+  } from "@/components/ui/sheet"
+  import useModal from "../hooks/modal"
+const QuestionReview = ({type}) => {
     const dispatcher =  useDispatch()
+    const [setModal] = useModal()
+
     const examData = useSelector((state)=>state.examAnswer)
     const question = examData.examDetails.questions[examData.currentQuestion] 
     const markedAndAns = examData.answeredQuestions.filter((ele)=>examData.markedQuestions.includes(ele))
@@ -17,12 +21,36 @@ const QuestionReview = () => {
     <div className='w-full flex gap-2 grow bg-gray-100 border-b-2  px-7 py-3 flex-wrap '>
    
         {
-          examData.examDetails.questions.map((question, index)=>{
-            return (
-              <button
-              key={index}
-              onClick={()=>{dispatcher(setCurrentQuestion(index))}}           
-              className={` rounded-md outline-none w-12 h-10 border-2 ${getColor(index,  examData.markedQuestions, examData.answeredQuestions )}  border-b-8 `}> {index+1}  </button>
+          examData.questions.map((question, index)=>{
+            return (<>
+            {
+              type === "mob" ? 
+                    <SheetClose  key={index}>
+                    <button
+                    
+                    onClick={()=>{dispatcher(setCurrentQuestion(index))}}           
+                    className={` rounded-md outline-none w-12 h-10 border-2 ${getColor(index,  examData.markedQuestions, examData.answeredQuestions )}  border-b-8 `}> {index+1} 
+                    
+                    </button>
+                    </SheetClose> :
+
+                    <button
+                    
+                    onClick={()=>{dispatcher(setCurrentQuestion(index))}}           
+                    className={` rounded-md outline-none w-12 h-10 border-2 ${getColor(index,  examData.markedQuestions, examData.answeredQuestions )}  border-b-8 `}> {index+1} 
+                    
+                    </button>
+
+
+
+
+            }
+
+
+
+
+            </>
+              
             )
           })
         }
@@ -68,7 +96,15 @@ const QuestionReview = () => {
     
     </div>
     <div className='w-full border-2 border-x-0 px-7 py-3 flex justify-between items-center  self-end bg-slate-50 '>
-      <Button className="w-full">  szv exam </Button>
+      <Button  onClick={()=>{
+        console.log(examData);
+        setModal({type:"confirm", open:true, 
+        props : {data:{exam :examData.exam._id, answers: examData.answers}, 
+        num : {answered : examData.answeredQuestions.length, all :examData.questions.length }}})}}  
+        className="w-full bg-green-500"> 
+
+      إنهاء الإختبار
+       </Button>
     
     </div>
 

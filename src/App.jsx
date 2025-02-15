@@ -28,12 +28,31 @@ import LevelsPage from './pages/levels/levelsPage'
 import AddExamPage from './pages/addExam/addExamPage'
 import ScoresPage from './pages/scores/scoresPage'
 import MainLayout from './components/mainLayout'
-function App() {
+import AdminProfile from './pages/adminProfile'
+import StudentProfile from './pages/studentProfile'
+import useLocalStorage from './hooks/localstorage'
 
+import StudentResults from './student/results/resultesPage'
+import PastExams from './student/pastExams/pastExamsPage'
+import AvailableExams from './student/avilableExams/avilableExamsPage'
+import GlobalModal from './components/featuers/globalModal'
+
+
+
+function App() {
+  const [user] = useLocalStorage("user")
   return (
+    <>
+       
+
+
+   
     <Routes>
       <Route element={<ProtectedRoutes/>}>
 
+
+       
+        {  user && user.role === "admin"   ? <>
         <Route  path='/add-exam'  element={<AddExamPage/>}   />
         <Route  path='/exams'  element={<ExamsPage/>}   />
         <Route  path='/students'  element={<StudentsPage/>}   />
@@ -42,39 +61,29 @@ function App() {
         <Route  path='/supervisors'  element={<SupervisorsPage/>}   />
         <Route  path='/intakes'  element={<IntakesPage/>}   />
         <Route  path='/scores'  element={<ScoresPage/>}   />
-
+        <Route  path='/profile'  element={<AdminProfile/>}   />
         <Route  path='/levels'  element={<LevelsPage/>}   />
         <Route  path='/home'  element={<div/>}   />
-
         <Route  path='/settings'  element={<div/>}   />
-
-
-
-
-
-        
-
-        
-          <Route  path='/m'  element={<Wizard/>}   />
-          <Route  path='/s'  element={<ExamAnswer/>}   />
-          <Route  path='/ss'  element={<Exam/>}   />
-          <Route  path='/'  element={<HomePage />}   />
-          <Route  path='/test'  element={<Test />}   />
-
+        </> : <> 
+        <Route  path='/results'  element={<StudentResults />}   />
+        <Route  path='/next-exams'  element={<AvailableExams/>}   />
+        <Route  path='/past-exams'  element={<PastExams/>}   />
+        <Route  path='/profile'  element={<StudentProfile/>}   />
+        </>}
       </Route>
-      {/* <Route element={<MainLayout/>}> */}
-
+        <Route  path='/take-exam/:id'  element={<ExamAnswer/>}   />
         <Route  path='/login'  element={<LoginPage/>}   />
         <Route  path='/signUp'  element={<SignUpPage/>}   />
         <Route  path='/forgot-password'  element={<ForgotPasswordPage/>}   />
       
-      {/* </Route> */}
-
+ 
 
 
 
     </Routes>
-     
+    <GlobalModal/>
+      </>
   )
 }
 

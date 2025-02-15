@@ -30,6 +30,7 @@ import { GrScorecard } from "react-icons/gr";
 import { NavUser } from "./userAvatar"
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
+import useLocalStorage from "../hooks/localstorage";
 const items = [
   {
     title: "الإختبارات",
@@ -85,10 +86,38 @@ const items = [
     title: "الإعدادات",
     url: "/settings",
     icon: IoSettingsOutline,
-  },
+  }
+  
 ]
 
+
+
+const studentNavs = [
+   {
+    title: "الإختبارات المتاحة",
+    url: "/next-exams",
+    icon: SlBookOpen,
+  },
+  {
+    title: "الإختبارات السابقة",
+    url: "/past-exams",
+    icon: GrDocumentTest,
+  },
+  {
+    title: " النتائج",
+    url: "/results",
+    icon: GrScorecard,
+  }
+]
+
+
 export function AppSidebar() {
+  const [user, setUser] = useLocalStorage("user", {
+    firstName: "",
+    lastName: "",
+    email: "",
+    personalImage: "",
+  })
   const {pathname} = useLocation()
   const {setOpenMobile} = useSidebar()
 
@@ -101,20 +130,22 @@ export function AppSidebar() {
     <div className="relative p-2 rounded-lg pt-0  customShadow h-full overflow=y-scroll bg-white">
       <SidebarHeader className="h-16  sticky  left-2 top-0 bg-white z-20 -mx-2 rounded-lg">
       <NavUser user={{
-          name: "string",
-          email: "string",
-          avatar: "https://randomuser.me/api/portraits/men/9.jpg",
+          name: `${user.firstName} ${user.lastName}`,
+          email: user.email,
+          avatar: user.personalImage ? user.personalImage : "/bgg.jpg",
         }} />
       </SidebarHeader>
 
     
-    
+ 
       <SidebarContent>
         <SidebarGroup>
           {/* <SidebarGroupLabel>Application</SidebarGroupLabel> */}
           <SidebarGroupContent>
             <SidebarMenu>
-              {items.map((item) => (
+              {
+              
+               ( user.role === "admin" ? items : studentNavs).map((item) => (
                 <SidebarMenuItem key={item.title} className={`${ pathname ==item.url ? "bg-gray-200" : ""} rounded-md`}>
                   <SidebarMenuButton asChild onClick = {()=>{setOpenMobile(false)}}>
                     <Link to={item.url}>

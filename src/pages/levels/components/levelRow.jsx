@@ -16,7 +16,7 @@ import { formatDate } from "../../../lib/commonUtils"
 
 const LevelRow = (data) =>{
     const [setModal] = useModal()
-    return <tr className="border-b border-gray-200 hover:bg-gray-200">
+    return <tr className="border-b border-gray-200 hover:bg-gray-200 h-10">
 
               <td className="pl-4    whitespace-nowrap  " >{data.data.name}</td>
               <td className="pl-4    whitespace-nowrap" >{formatDate(data.data.startDate)}</td>

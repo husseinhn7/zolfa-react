@@ -38,7 +38,8 @@ const ExamDetailsForm = ({setStep}) => {
       comment :selector.comment,
       startDate : selector.startDate, 
       endDate: selector.endDate, 
-      isFinal : selector.isFinal
+      isFinal : selector.isFinal,
+      duration : selector.duration
     },
     validationSchema :examDetailsSchema ,
     onSubmit : (values)=>{
@@ -124,9 +125,12 @@ const ExamDetailsForm = ({setStep}) => {
                     
                     
                     </div>  
-                    <div className="flex flex-col w-full  ">
-
-                            <div className="flex items-center space-x-2 h-10 gap-4">
+                    <div className="flex w-full   justify-between items-center gap-3">
+                              <div className="flex flex-col  grow">
+                            <Label  className="mb-2" >مدة الإختبار بالساعات</Label>
+                            <Input type="number" id="name" name="duration" placeholder="مدة الإختبار بالساعات" onChange={handleChange} />
+                          </div>
+                            <div className="flex items-center space-x-2 h-10 gap-4 grow mt-4">
                             <Checkbox 
                                 id="isFinal"
                                 name="isFinal"
